@@ -9,6 +9,8 @@
 #import "TimelineViewController.h"
 #import "Tweet.h"
 #import "AFNetworking.h"
+#import "TweetCell.h"
+
 @interface TimelineViewController ()
 
 @end
@@ -24,9 +26,8 @@
     return self;
 }
 
-CGFloat const TextLabelFont = 16.0f;
-CGFloat const DetailTextLabelFont = 16.0f;
-CGFloat const MaxCellHeight = 450.0f;
+CGFloat const TextLabelFont = TWEET_TEXT_FONT_SIZE;
+CGFloat const DetailTextLabelFont = TWEET_USER_FONT_SIZE;
 
 - (UIFont*)textLabelFont
 {
@@ -50,37 +51,45 @@ CGFloat const MaxCellHeight = 450.0f;
 
     CGFloat height = 0;
     Tweet *tweet = self.dataArray[indexPath.row];
-    CGSize size = [tweet.text sizeWithFont:[self textLabelFont] constrainedToSize:CGSizeMake(300, MaxCellHeight) lineBreakMode:NSLineBreakByCharWrapping];
+
+    CGSize size = [tweet.text  boundingRectWithSize:CGSizeMake(250.0f, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[self textLabelFont]} context:nil].size;
+
     height += size.height;
+    float cellWidth = TWEET_CELL_TEXT_WIDTH; //neden direk parametre olarak geciremiyorum
     
-    size = [tweet.user.screenName sizeWithFont:[self textLabelFont] constrainedToSize:CGSizeMake(tableView.bounds.size.width, MaxCellHeight) lineBreakMode:NSLineBreakByTruncatingTail];
-    
+    size = [tweet.user.screenName sizeWithFont:[self textLabelFont] constrainedToSize:CGSizeMake(cellWidth, CGFLOAT_MAX) lineBreakMode:NSLineBreakByTruncatingTail];
+
     height += size.height;
     
     height += 10;
-    
+
+
     return ceilf(height);
+    
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (TweetCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"TimelineCell";
-    UITableViewCell *cell;
+    TweetCell *cell;
 //    cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if(!cell)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell = [[TweetCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     Tweet *tweet = self.dataArray[indexPath.row];
     cell.textLabel.font = [self textLabelFont];
-    cell.textLabel.lineBreakMode = NSLineBreakByCharWrapping;
-    cell.textLabel.numberOfLines = 0;
+    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
     cell.textLabel.text = tweet.text;
-    
-    if(tweet.user.profileImage)
+    CGFloat imageHeight = TWEET_CELL_IMAGE_HEIGHT;
+    CGFloat imageWidth = TWEET_CELL_IMAGE_WIDTH;
+   if(tweet.user.profileImage)
     {
-        cell.imageView.image = tweet.user.profileImage;
+        cell.imageView.image = [ImageUtil resizeImage:tweet.user.profileImage withWidth:imageWidth withHeight:imageHeight];
+        cell.imageView.bounds = CGRectMake(0, 0, imageWidth, imageHeight);
+
     }
+    
     
     cell.detailTextLabel.textColor = [UIColor magentaColor];
     cell.detailTextLabel.font = [self detailTextLabelFont];
@@ -101,11 +110,10 @@ CGFloat const MaxCellHeight = 450.0f;
                 [tmpArray addObject:tweet];
                 
                 NSURLRequest *request = [NSURLRequest requestWithURL:tweet.user.profileImageURL];
-                
+                    
                 AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
                 requestOperation.responseSerializer = [AFImageResponseSerializer serializer];
                 [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-                    NSLog(@"Response: %@", responseObject);
                     tweet.user.profileImage = responseObject;
                     int index = [weakSelf.dataArray indexOfObject:tweet];
                     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
@@ -114,7 +122,18 @@ CGFloat const MaxCellHeight = 450.0f;
                     {
                         dispatch_async(dispatch_get_main_queue(), ^{
                             UITableViewCell *cell = [weakSelf.tableView cellForRowAtIndexPath:indexPath];
-                            cell.imageView.image = tweet.user.profileImage;
+                            CGFloat imageHeight = TWEET_CELL_IMAGE_HEIGHT;
+                            CGFloat imageWidth = TWEET_CELL_IMAGE_WIDTH;
+                            cell.imageView.image = [ImageUtil resizeImage:tweet.user.profileImage withWidth:imageWidth withHeight:imageHeight];
+                            cell.imageView.bounds = CGRectMake(0, 0, imageWidth, imageHeight);
+                            /*
+                            cell.detailTextLabel.text = [NSString stringWithFormat:@"@%@",tweet.user.screenName];
+                            cell.textLabel.text = tweet.text;
+                            cell.textLabel.font = [self textLabelFont];
+                             */
+                            [weakSelf.tableView  reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                             
+
                         });
                     }
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -159,15 +178,6 @@ CGFloat const MaxCellHeight = 450.0f;
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

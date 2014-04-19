@@ -27,7 +27,6 @@
     if (self) {
         if(dict[@"id"])
         {
-            NSNumber *num = dict[@"id"];
             self.idx = [dict[@"id"] longLongValue];
         }
     }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04403FAD1902A2480098EB19 /* TweetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04403FAC1902A2480098EB19 /* TweetCell.m */; };
+		04763D911902941300F760F3 /* ImageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 04763D901902941300F760F3 /* ImageUtil.m */; };
 		4FBA215218FD22BA004AA40B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FBA215118FD22BA004AA40B /* Foundation.framework */; };
 		4FBA215418FD22BA004AA40B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FBA215318FD22BA004AA40B /* CoreGraphics.framework */; };
 		4FBA215618FD22BA004AA40B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FBA215518FD22BA004AA40B /* UIKit.framework */; };
@@ -55,6 +57,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04403FAB1902A2480098EB19 /* TweetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetCell.h; sourceTree = "<group>"; };
+		04403FAC1902A2480098EB19 /* TweetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetCell.m; sourceTree = "<group>"; };
+		04763D8F1902941300F760F3 /* ImageUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageUtil.h; sourceTree = "<group>"; };
+		04763D901902941300F760F3 /* ImageUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageUtil.m; sourceTree = "<group>"; };
 		4FBA214E18FD22BA004AA40B /* TwitterClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FBA215118FD22BA004AA40B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4FBA215318FD22BA004AA40B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -236,6 +242,8 @@
 				4FBA219418FD25A5004AA40B /* MentionEntity.m */,
 				4FBA21A918FD5026004AA40B /* RequestManager.h */,
 				4FBA21AA18FD5026004AA40B /* RequestManager.m */,
+				04403FAB1902A2480098EB19 /* TweetCell.h */,
+				04403FAC1902A2480098EB19 /* TweetCell.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -263,6 +271,8 @@
 			isa = PBXGroup;
 			children = (
 				4FBA21AD18FEA48F004AA40B /* AFNetworking */,
+				04763D8F1902941300F760F3 /* ImageUtil.h */,
+				04763D901902941300F760F3 /* ImageUtil.m */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -341,7 +351,7 @@
 				ORGANIZATIONNAME = manuyavuz;
 				TargetAttributes = {
 					4FBA214D18FD22BA004AA40B = {
-						DevelopmentTeam = EVH3NXQ4SC;
+						DevelopmentTeam = F49E5GW326;
 					};
 					4FBA216818FD22BA004AA40B = {
 						TestTargetID = 4FBA214D18FD22BA004AA40B;
@@ -412,10 +422,12 @@
 				4FBA219218FD2580004AA40B /* URLEntity.m in Sources */,
 				4FBA21A818FD2E4C004AA40B /* SendTweetViewController.m in Sources */,
 				4FBA218F18FD256B004AA40B /* HashtagEntity.m in Sources */,
+				04763D911902941300F760F3 /* ImageUtil.m in Sources */,
 				4FBA21C718FEA48F004AA40B /* AFURLRequestSerialization.m in Sources */,
 				4FBA21C118FEA48F004AA40B /* AFHTTPRequestOperation.m in Sources */,
 				4FBA21C818FEA48F004AA40B /* AFURLResponseSerialization.m in Sources */,
 				4FBA21AB18FD5026004AA40B /* RequestManager.m in Sources */,
+				04403FAD1902A2480098EB19 /* TweetCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -616,6 +628,7 @@
 				4FBA217C18FD22BA004AA40B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4FBA217D18FD22BA004AA40B /* Build configuration list for PBXNativeTarget "TwitterClientTests" */ = {
 			isa = XCConfigurationList;
@@ -624,6 +637,7 @@
 				4FBA217F18FD22BA004AA40B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

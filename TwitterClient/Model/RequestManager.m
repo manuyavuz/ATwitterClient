@@ -63,7 +63,7 @@
                 case RequestTypeTimeline:
                     url = [NSURL URLWithString:@"https://api.twitter.com/1.1/statuses/home_timeline.json"];
                     [params setObject:@"true" forKey:@"exclude_replies"];
-//                    [params setObject:@"2" forKey:@"count"];
+                    [params setObject:@"10" forKey:@"count"];
                     break;
                 default:
                     break;

@@ -17,7 +17,8 @@
         self.name = dict[@"name"];
         self.screenName = dict[@"screen_name"];
         NSString *bigPath = dict[@"profile_image_url"];
-//        NSString *bigPath = [dict[@"profile_image_url"] stringByReplacingOccurrencesOfString:@"_normal" withString:@""];
+        bigPath = [dict[@"profile_image_url"] stringByReplacingOccurrencesOfString:@"_normal" withString:@""];
+
         self.profileImageURL = [NSURL URLWithString:bigPath];
     }
     return self;
