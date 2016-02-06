@@ -17,3 +17,12 @@
 #endif
 
 #import "RequestManager.h"
+#import "ImageUtil.h"
+
+#define TWEET_CELL_IMAGE_WIDTH 50.0;
+#define TWEET_CELL_IMAGE_HEIGHT 50.0;
+
+#define TWEET_CELL_TEXT_WIDTH 250.0;
+
+#define TWEET_TEXT_FONT_SIZE 16.0f;
+#define TWEET_USER_FONT_SIZE 16.0f;
